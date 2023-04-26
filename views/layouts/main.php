@@ -8,10 +8,26 @@
     <title>Main site</title>
 </head>
 <body>
-
-<div>
-    <?= $content ?? ''; ?>
-</div>
+<header>
+    <nav>
+        <a href="<?= app()->route->getUrl('/go') ?>">Главная</a>
+        <?php
+        if (!app()->auth::check()):
+            ?>
+            <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
+            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
+        <?php
+        else:
+            ?>
+            <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
+        <?php
+        endif;
+        ?>
+    </nav>
+</header>
+<main>
+    <?= $content ?? '' ?>
+</main>
 
 </body>
 </html>
